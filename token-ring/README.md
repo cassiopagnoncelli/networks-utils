@@ -1,7 +1,6 @@
 # Token Ring network
 
-Token ring is a network topology tailored for reliability, low latency, and
-real time networking.
+Token ring is a network topology tailored for low latency and real time networking.
 
 It consists of tying together consecutive nodes forming a ring.
 
