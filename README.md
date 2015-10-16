@@ -4,7 +4,7 @@ A collection of networks services, protocols, and architectures.
 
 For each project, browse it for a more detailed presentation.
 
-## #!(Token Ring network)[./token-ring]
+## Token Ring network
 
 Token ring is a network topology tailored to achieve low latency and
 real time networking at the cost of some reliability.
