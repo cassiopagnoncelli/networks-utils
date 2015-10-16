@@ -13,11 +13,13 @@ Written in pure ANSI C.
 
 ## Hi-ADSD network architecture
 
-Hi-ADSD is a hypercube network architecture aimed to dramatically reduce
-the number of messages passed in the network to O(log N) exchanges.
+A hierarchical adaptive distributed system-level diagnosis algorithm.
 
-It features a few other pure distributed systems techniques to achieve
-fail resilience and self remedy.
+Consists of a (log N)^2 strategy to diagnose a faulty or faulty-free
+network of N nodes.
+
+This incredibly low compleixty time is achieved by using the fact that
+diagnosis tasks can be run asynchronously.
 
 Written in pure ANSI C at UFPR Computer Science labs.
 
