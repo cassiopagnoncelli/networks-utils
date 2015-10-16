@@ -21,7 +21,7 @@ network of N nodes.
 This incredibly low complexity time is achieved by using the fact that
 diagnosis tasks can be run asynchronously.
 
-Written in pure ANSI C at UFPR Computer Science labs.
+Written in pure ANSI C at UFPR Computer Science labs by Dr Elias Duarte.
 
 ## Hypercube mapping
 
