@@ -15,13 +15,20 @@ Written in pure ANSI C.
 
 A hierarchical adaptive distributed system-level diagnosis algorithm.
 
-Consists of a (log N)^2 strategy to diagnose a faulty or faulty-free
+Consists of a (log N)^2 strategy to diagnose a faulty or fault-free
 network of N nodes.
 
-This incredibly low compleixty time is achieved by using the fact that
+This incredibly low complexity time is achieved by using the fact that
 diagnosis tasks can be run asynchronously.
 
 Written in pure ANSI C at UFPR Computer Science labs.
+
+## Hypercube mapping
+
+It maps nodes numbers to their positions in a hypercube vector space.
+
+A closure in this network using these keys grants messages to be delivered
+in O(log N) worst-case messages exchanges.
 
 ## Remote Procedure Call
 
