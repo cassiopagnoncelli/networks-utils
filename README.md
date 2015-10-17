@@ -15,7 +15,7 @@ Written in pure ANSI C.
 
 A hierarchical adaptive distributed system-level diagnosis algorithm.
 
-Consists of a (log N)^2 strategy to diagnose a faulty or fault-free
+Consists of a (log N)^2-time strategy to diagnose a faulty or fault-free
 network of N nodes.
 
 This incredibly low complexity time is achieved by using the fact that
