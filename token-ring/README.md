@@ -4,7 +4,7 @@ Token ring is a network topology tailored for low latency and real time networki
 
 It consists of tying together consecutive nodes forming a ring.
 
-!(TokenRing)[http://www.webopedia.com/FIG/RING.gif]
+![TokenRing](http://www.webopedia.com/FIG/RING.gif)
 
 ## Access control
 
