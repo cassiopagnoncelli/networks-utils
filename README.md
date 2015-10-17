@@ -1,5 +1,3 @@
-# Network utils
-
 A collection of networks services, protocols, and architectures.
 
 For each project, browse it for a more detailed presentation.
