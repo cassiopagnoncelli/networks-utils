@@ -55,3 +55,4 @@ It works hierarchicaly below IP protocol mimicking TCP/IP functionalities
 like parity-checking, sliding windows, package splitting, error correction,
 interruption resilience, among others.
 
+![](http://www.deskshare.com/resources/articles/images/ftp-protocol.gif)
