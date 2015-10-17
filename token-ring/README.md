@@ -31,7 +31,7 @@ of magnitude higher than that of standard TCP/IP.
 ## Compilation
 
 First off, you need to set up the number of machines in the network. You may
-find this parameter at Makefile at line 12 (-DMAQUINAS\_NA\_REDE).
+find this parameter at Makefile:12.
 
 Lastly, upon binary generation with Makefile compiling tool
 

@@ -9,6 +9,8 @@ real time networking at the cost of some reliability.
 
 Written in pure ANSI C.
 
+![TokenRing](http://www.webopedia.com/FIG/RING.gif)
+
 ## Hi-ADSD network architecture
 
 A hierarchical adaptive distributed system-level diagnosis algorithm.
@@ -37,6 +39,8 @@ and return its result.
 Network can handle as many layer nodes as wanted between client and server.
 
 Written in pure ANSI C.
+
+![RPC](http://pubs.opengroup.org/onlinepubs/9629399/c7060601.gif)
 
 ## FTP server-client
 
