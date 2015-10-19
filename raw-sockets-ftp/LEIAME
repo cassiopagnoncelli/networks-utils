@@ -1,0 +1,89 @@
+DECISOES DO PROJETO
+
+   -- Convencoes de comandos --
+   Os comandos de listagem e mudança de diretorios devem seguir a seguinte
+   convenção:
+
+   lcd [DIR [OPCOES...]]
+   lls [DIR [OPCOES...]]
+   ls [DIR [OPCOES...]]
+   cd [DIR [OPCOES...]]
+   put ARQ_LOCAL
+   get ARQ_REMOTO
+
+   de modo que:
+   "[X]" denota X como um parâmetro opcional;
+   "[X [Y]]" denota X e Y parâmetros opcionais, mas X é necessário para Y ser
+   especificado e a ordem deve ser preservada (primeiro X, depois Y);
+   "X..." denota que pode haver múltiplos parâmetros (um ou mais) de sua mesma
+   classe. e.g.: "ls . -l -h -a" é visto como ls [DIR [OPCOES...]] onde DIR é
+   "." e OPCOES é formado por "-l", "-h" e "-a".
+
+   observações para ls, lls, cd e lcd: na ausência do primeiro parâmetro, DIR,
+   é assumido que DIR=., fazendo com que nada seja alterado (e.g. a linha de
+   comando "cd" não alteraria o diretório para ~ como no unix, alteraria para
+   o diretório corrente, denotado por . (ponto)). Vale também lembrar que os
+   atalhos padrões do bash ~ e -nao estão definido.
+
+
+   -- Troca de mensagens --
+
+   A troca de mensagens pode ser modelada por meio de máquinas de estados --ou,
+   em mais alto nível de abstração, com grafos direcionados-- onde uma aresta 
+   representa uma mudança de estado de modo que essa transição seja devidamente
+   marcada por um pacote especial. Para isso, um novo tipo de pacote foi 
+   definido para delimitar o final de um `passo' (ou, troca de estado) de uma 
+   mensagem. [S]tep (tipo S) é o nome do pacote, já que a nomenclatura usual
+   [P]asso (tipo P) é reservada para mensagens do tipo [P]ut (tipo P).
+
+   Os comandos, que compoem mensagens, que trafegam pela rede são quatro: cd, 
+   ls, put e get. Essas mensagens podem ser divididas em um ou dois passos para
+   cada aplicacao (cliente ou servidor). Isso é melhor explicado mais adiante.
+
+   O comando cd, portanto, compõe, do cliente o passo 1 contendo uma mensagem
+   formada pelo C<...> e um pacote S delimitando o fim do primeiro passo. 
+   Enquanto isso, o servidor interpreta essa mensagem e gera um dos dois 
+   possíveis passos: (1) S, indicando que além da mensagem ter sido aceita, 
+   foi processada e não ocorreu erros, nesse caso, indicando diretório 
+   alterado; ou, (2) o comando é invalido ou algum erro aconteceu e, portanto,
+   o servidor gera uma mensagem composta por um pacote do tipo erro, contendo o
+   código do erro, e um S indicando fim do passo. 
+
+   Analogamente, para o ls, no lado cliente temos uma mensagem composta por
+   L<args...> (potencialmente o comando é dividido em múltiplos pacotes quando
+   a linha de comando é muito grande) e um pacote S ([S]tep) indicando o fim
+   do passo. Já na aplicação servidora, após receber a mensagem do cliente, 
+   uma das duas possíveis mensagens será gerada: (1) X<conteúdo...> 
+   (potencialmente dividido em múltiplos pacotes) e um pacote S indicando fim
+   da mensagem; ou, (2) E<cod> e um pacote S indicando fim do passo 1 da 
+   mensagem, quando o comando não é executado com sucesso.
+
+   Similarmente, para o comando get temos
+   Cliente (passo 1): (G<...>, S). 
+   Servidor (passo 1): (F<...>, ..., F<...>, D<...>, ..., D<...>, Z, S); 
+                       ou, (E<cod>, S), em caso de erro.
+   Um segundo passo não é necessário, já que se a mensagem da aplicação
+   servidora não incidir na aplicação cliente, teremos o timeout do cliente
+   pedindo re-transmissão do get.
+
+   Os três casos anteriores mostram trocas de mensagens com apenas um passo.
+   O put é um caso especial. No lado cliente, um passo da mensagem no formato
+   (P<nome_arquivo>, S) e, se houver resposta afirmativa S na máquina 
+   adjacente, indicando que se pode prosseguir para o próximo passo, como
+   primeiro passo, o segundo passo da mensagem no lado cliente é no formato: 
+   (F<...>, ..., F<...>, D<...>, ..., D<...>, S), que aguarda uma mensagem
+   S indicando que a transmissão foi bem sucedida. No primeiro passo do 
+   cliente, o servidor pode responder com (E<cod>, S), indicando um erro
+   local do servidor, o que impede o avanço do cliente para o passo 2.
+
+
+BUGS
+
+   Todas as mensagens sao mapeadas em memoria antes de serem enviadas --essa
+   foi uma decisao de projeto que tomamos na fase de modelagem-- e, por conta
+   disso, eventualmente em transferencias de arquivos grandes nao ha memoria
+   suficiente e, assim, o programa termina, ficando condicionado a 
+   disponibilidade de memoria. Ficou inviavel refazer o "esqueleto" do modelo a
+   fim de enviar os pacotes na medida em que o arquivo e lido, ja que o erro 
+   foi conhecido ja na fase de testes. Enfim, esse e o unico erro conhecido.
+
