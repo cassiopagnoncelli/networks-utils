@@ -1,6 +1,8 @@
+all: hypercube cisj
+
 hypercube: hypercube.c
 
-clear:
-	if [ -e hypercube ]; then rm hypercube; fi
+cisj: cisj.c
 
-clean: clear
+clean:
+	@$(RM) -v hypercube cisj
